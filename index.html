@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lift Simulation</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    #building {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #lift-shaft {
+      width: 100px;
+      height: 300px;
+      border: 2px solid #000;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    #lift {
+      width: 100px;
+      height: 100px;
+      background-color: #3498db;
+      position: absolute;
+      bottom: 0;
+      transition: bottom 2s;
+    }
+
+    #controls button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="building">
+    <div id="lift-shaft">
+      <img id="lift" src="data:image/png;base64,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"">
+      <!-- <div id=" lift">
+    </div> -->
+  </div>
+  <div id="controls">
+    <button onclick="moveLift(0)">Floor 1</button>
+    <button onclick="moveLift(1)">Floor 2</button>
+    <button onclick="moveLift(2)">Floor 3</button>
+  </div>
+  </div>
+  <script>
+    function moveLift(floor) {
+      const lift = document.getElementById('lift');
+      const floors = [0, 100, 200]; // Assume kryn k 100px ka floor hy,
+      lift.style.bottom = floors[floor] + 'px';
+    }
+
+  </script>
+</body>
+
+</html>
